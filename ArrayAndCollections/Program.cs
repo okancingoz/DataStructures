@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Linq;
 
-/*
+
 //Array
 char[] arrChar = new char[3];
 Console.WriteLine(arrChar.Length);
@@ -112,7 +112,7 @@ foreach (var item in carr)
     Console.WriteLine($"{item}");
 }
 Console.WriteLine($"{carr.Count}/{carr.Capacity}");
-*/
+
 
 var arr = new Array<int>(1,2,4,5);
 arr.Remove(1);
