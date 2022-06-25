@@ -4,6 +4,17 @@ public class SinglyLinkedList<T> : IEnumerable<T>
 {
     public SinglyLinkedListNode<T> Head { get; set; }
     private bool isHeadNull => Head == null;
+    public SinglyLinkedList()
+    {
+
+    }
+    public SinglyLinkedList(IEnumerable<T> collection)
+    {
+        foreach (var item in collection)
+        {
+            this.AddLast(item);
+        }
+    }
 
     public void AddFirst(T value)
     {
@@ -145,6 +156,73 @@ public class SinglyLinkedList<T> : IEnumerable<T>
             prev = prev.Next;
         }
         throw new ArgumentException("The reference node is not in this list.");
+    }
+
+    public T RemoveFirst()
+    {
+        if (isHeadNull)
+        {
+            throw new Exception("Nothing to remove");
+        }
+
+        var firsValue = Head.Value;
+        Head = Head.Next;
+        return firsValue;
+    }
+
+    public T RemoveLast()
+    {
+        if (isHeadNull)
+        {
+            throw new Exception("Nothing to remove");
+        }
+
+        var current = Head;
+        SinglyLinkedListNode<T> prev = null;
+        while (current.Next != null)
+        {
+            prev = current;
+            current = current.Next;
+        }
+        var lastValue = current.Value;
+        prev.Next = null;
+        return lastValue;
+    }
+
+    public void Remove(T value)
+    {
+        if (isHeadNull)
+        {
+            throw new Exception("Nothing to remove.");
+        }
+        if (value == null)
+        {
+            throw new ArgumentNullException("There is no value to delete");
+        }
+
+        var current = Head;
+        SinglyLinkedListNode<T> prev = null;
+        do
+        {
+            if (current.Value.Equals(value))
+            {   
+                // Last element?
+                if (current.Next == null)
+                {   
+                    RemoveLast();
+                    return;
+                }
+                if (prev == null)
+                {
+                    RemoveFirst();
+                    return;
+                }
+                prev.Next = current.Next;
+            }
+            prev = current;
+            current = current.Next;
+        } while (current != null);
+
     }
 
     public void Print()
