@@ -83,23 +83,28 @@ public class Array<T> : IEnumerable<T>, ICloneable
         return temp;
     }
 
-    public bool Remove(T item)
-    { 
-      
-      for (int i = 0; i < InnerList.Length; i++)
-      {
-        if (InnerList[i].Equals(item))
-        {   
-            int iter = i;
-            while (iter != InnerList.Length-1)
-            {   
-                InnerList[iter] = InnerList[iter+1];
-                iter++;
+   public bool Remove(T item)
+    {
+        if (InnerList.Contains(item))
+        {
+            var temp = new T[InnerList.Length];
+            for (int i = 0; i < InnerList.Length; i++)
+            {
+                if (InnerList[i].Equals(item))
+                {
+                    continue;
+                }
+                temp[i] = InnerList[i];
             }
+            InnerList = temp;
             return true;
         }
-      }  
-      return false;
+        else
+        {
+            System.Console.WriteLine("There is no such element in this array.");
+            return false;
+        }
+
     }
 
     private void HalfArray()
